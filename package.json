@@ -1,0 +1,28 @@
+{
+  "name": "@arjunatlast/shape.js",
+  "version": "0.0.1",
+  "description": "Javascript library to deal with co-ordinate systems and geometric shapes.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArjunAtlast/shape.js.git"
+  },
+  "keywords": [
+    "shape",
+    "javascript",
+    "typescript",
+    "geometry"
+  ],
+  "author": "Arjun Atlast",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArjunAtlast/shape.js/issues"
+  },
+  "homepage": "https://github.com/ArjunAtlast/shape.js#readme",
+  "devDependencies": {
+    "typescript": "^3.1.3"
+  }
+}
