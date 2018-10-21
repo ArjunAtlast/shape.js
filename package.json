@@ -4,8 +4,8 @@
   "description": "Javascript library to deal with co-ordinate systems and geometric shapes.",
   "main": "dist/index.js",
   "scripts": {
-    "build" : "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "test": "mocha --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,12 @@
   },
   "homepage": "https://github.com/ArjunAtlast/shape.js#readme",
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
     "typescript": "^3.1.3"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.117",
+    "lodash": "^4.17.11"
   }
 }

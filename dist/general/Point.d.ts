@@ -1,26 +1,13 @@
 import { MatrixRepresentable } from "../interfaces/MatrixRepresentable";
-import { Matrix, MatrixOperations } from "../base/Matrix";
-import { TranslationMatrix } from "../transformations/TranslationMatrix";
-import { RotationMatrix } from "../transformations/RotationMatrix";
-import { ScalingMatrix } from "../transformations/ScalingMatrix";
-
-const _mul = MatrixOperations.multiply;
-
-export class Point implements MatrixRepresentable {
-
+import { Matrix } from "../base/Matrix";
+export declare class Point implements MatrixRepresentable {
     protected _matrix: Matrix;
-
     /**
      * Create a new point
      * @param x X Co-ordinate of the point
      * @param y Y Co-ordinate of the point
      */
-    constructor(x: number, y: number) {
-
-        this._matrix = new Matrix(3,1,x,y,1);
-
-    }
-
+    constructor(x: number, y: number);
     /**
      * Returns x co-ordinate of the point
      * @example
@@ -29,10 +16,7 @@ export class Point implements MatrixRepresentable {
      * p.x;
      * // => 5
      */
-    get x() {
-        return this._matrix.get(0, 0)/this._matrix.get(2,0);
-    }
-
+    readonly x: number;
     /**
      * Returns y co-ordinate of the point
      * @example
@@ -41,18 +25,12 @@ export class Point implements MatrixRepresentable {
      * p.y;
      * // => 10
      */
-    get y() {
-        return this._matrix.get(1, 0)/this._matrix.get(2,0);
-    }
-
+    readonly y: number;
     /**
      * Return the matrix representation of the point
      * @returns {Matrix}
      */
-    get matrix(): Matrix {
-        return this._matrix.clone();
-    }
-
+    readonly matrix: Matrix;
     /**
      * Place a point in a particalar co-ordinate position in XY plane
      * @param x x co-ordinate of the position to place the point
@@ -64,13 +42,7 @@ export class Point implements MatrixRepresentable {
      * // (4,3)
      * @returns {this}
      */
-    place(x: number, y: number): this {
-
-        this._matrix = new Matrix(3,1,x,y,1);
-
-        return this;
-    }
-
+    place(x: number, y: number): this;
     /**
      * Move a point given x and y distance
      * @param tx Translation horizontal distance
@@ -82,15 +54,7 @@ export class Point implements MatrixRepresentable {
      * // (8, 14)
      * @return {this}
      */
-    translate(tx: number, ty: number): this {
-
-        const T = new TranslationMatrix(tx, ty);
-
-        this._matrix = _mul(T, this._matrix);
-
-        return this;
-    }
-
+    translate(tx: number, ty: number): this;
     /**
      * Rotate a point counter clockwise based on a point
      * @param angle angle of rotation in radians i.e 45deg = Math.PI/4
@@ -106,20 +70,7 @@ export class Point implements MatrixRepresentable {
      * // (4, 8)
      * @returns {this}
      */
-    rotate(angle: number, pivot: Point = ORIGIN): this {
-        
-        const T = new TranslationMatrix(-pivot.x, -pivot.y);
-        const T_ = new TranslationMatrix(pivot.x, pivot.y);
-
-        const R = new RotationMatrix(angle);
-
-        const C = _mul(_mul(T_, R), T);
-
-        this._matrix = _mul(C, this._matrix);
-
-        return this;
-    }
-    
+    rotate(angle: number, pivot?: Point): this;
     /**
      * Scale this point with reference to a pivot point
      * @param sx Scaling horizontal factor
@@ -136,20 +87,7 @@ export class Point implements MatrixRepresentable {
      * // (12, 8)
      * @returns {this}
      */
-    scale(sx: number, sy: number, pivot: Point = ORIGIN): this {
-
-        const T = new TranslationMatrix(-pivot.x, -pivot.y);
-        const T_ = new TranslationMatrix(pivot.x, pivot.y);
-
-        const S = new ScalingMatrix(sx, sy);
-
-        const C = _mul(_mul(T_, S), T);
-
-        this._matrix = _mul(C, this._matrix);
-
-        return this;
-    }
-
+    scale(sx: number, sy: number, pivot?: Point): this;
     /**
      * Transform the point based on a 2D homogenous transformation matrix.
      * @param matrix The 2D homogenous transformation matrix
@@ -159,18 +97,12 @@ export class Point implements MatrixRepresentable {
      * const t = new TranslationMatrix(5, 10);
      * const s = new ScalingMatrix(3, 3);
      * const c = MatrixOperations.multiply(t,s);
-     * 
+     *
      * p.transform(c);
      * // (20, 40)
      * @return {this}
      */
-    transform(matrix: Matrix): this {
-
-        this._matrix = _mul(matrix, this._matrix);
-
-        return this.normalize();
-    }
-
+    transform(matrix: Matrix): this;
     /**
      * Check whether the point is equivalent to another point
      * @param point The point to check equivality
@@ -186,28 +118,14 @@ export class Point implements MatrixRepresentable {
      * p.equals(r);
      * // => false
      */
-    equals(point: Point): boolean {
-        return this.x == point.x && this.y == point.y;
-    }
-
+    equals(point: Point): boolean;
     /**
      * Return a string representation of the point
      */
-    toString(): string {
-        return `(${this.x},${this.y})`;
-    }
-
+    toString(): string;
     /**
      * Normalize the point to set h value as 1
      */
-    private normalize(): this {
-
-        const h = this._matrix.get(2,0);
-
-        this._matrix = MatrixOperations.scalarMultiply(this._matrix, 1/h);
-
-        return this;
-    }
+    private normalize;
 }
-
-export const ORIGIN = new Point(0, 0);
+export declare const ORIGIN: Point;
